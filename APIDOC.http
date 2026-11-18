@@ -1,0 +1,52 @@
+
+
+# Admin  create
+
+###
+POST http://127.0.0.1:8000/accounts/admin/register/
+Content-Type: application/json
+
+{
+    "username":"admin1",
+    "email":"admin1@gmail.com",
+    "password":"admin1@123",
+    "phone":"111111111"
+}
+
+
+#-------------------------------------------------------------------------------
+
+# student create
+
+###
+POST http://127.0.0.1:8000/accounts/student/register/
+Content-Type: application/json
+
+{
+    "username":"student1",
+    "email":"student1@gmail.com",
+    "password":"student1@123",
+    "phone":"111111111"
+}
+
+
+# student get profile details
+
+###
+GET http://127.0.0.1:8000/accounts/student/profile/get/me/
+Accept: application/json
+Authorization: Basic student1:student1@123
+
+# student update profile details
+
+###
+PUT   http://127.0.0.1:8000/accounts/student/profile/complete/
+Content-Type:  application/json
+Authorization: Basic student1:student1@123
+
+{
+  "student_name": "jain Johnson",
+  "qualification": "Btech",
+  "passout_year": "y"
+
+}

@@ -38,7 +38,7 @@ class StudentProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    student_id = models.OneToOneField(User,on_delete=models.CASCADE,related_name="student")
+    student = models.OneToOneField(User,on_delete=models.CASCADE,related_name="student")
 
     def __str__(self):
         return self.student_name
@@ -52,7 +52,7 @@ def create_student_profile(sender,instance,created,*args,**kwargs):
 post_save.connect(create_student_profile,sender=User)
 
 # ===========================================================================================
-#
+#                               Trainer Profile
 # ===========================================================================================
 
 
@@ -61,11 +61,11 @@ class TrainerProfile(models.Model):
     trainer_name = models.CharField(max_length=100,null=True)
     qualification = models.CharField(max_length=200,null=True)
     language = models.CharField(max_length=200,null=True)
-    experiance_year = models.IntegerField(max_length=10,null=True)
+    experiance_year = models.CharField(max_length=20,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     
-    trainer_id = models.OneToOneField(User,on_delete=models.CASCADE,related_name="trainer")
+    trainer = models.OneToOneField(User,on_delete=models.CASCADE,related_name="trainer")
 
     def __str__(self):
         return self.trainer_name
@@ -73,6 +73,7 @@ class TrainerProfile(models.Model):
        
 def create_trainer_profile(sender,instance,created,*args,**kwargs):
         if created and instance.role == "trainer":
-            TrainerProfile.objects.create(student=instance)
+            TrainerProfile.objects.create(trainer=instance)
     
 post_save.connect(create_trainer_profile,sender=User)
+
