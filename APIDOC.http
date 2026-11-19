@@ -23,9 +23,9 @@ POST http://127.0.0.1:8000/accounts/student/register/
 Content-Type: application/json
 
 {
-    "username":"student1",
-    "email":"student1@gmail.com",
-    "password":"student1@123",
+    "username":"student4",
+    "email":"student4@gmail.com",
+    "password":"student4@123",
     "phone":"111111111"
 }
 
@@ -48,5 +48,44 @@ Authorization: Basic student1:student1@123
   "student_name": "jain Johnson",
   "qualification": "Btech",
   "passout_year": "y"
+
+}
+
+
+# -------------------------------------------------------------------------------
+# Trainer Create
+
+###
+POST http://127.0.0.1:8000/accounts/trainer/register/
+Content-Type: application/json
+
+{
+    "username":"Trainer7",
+    "email":"Trainer7@gmail.com",
+    "password":"Trainer7@123",
+    "phone":"111111111"
+}
+
+# trainer get profile details
+
+###
+GET http://127.0.0.1:8000/accounts/trainer/profile/get/me/
+Accept: application/json
+Authorization: Basic Trainer1:Trainer1@123
+
+
+# Trainer update profile details
+
+###
+PUT   http://127.0.0.1:8000/accounts/trainer/profile/complete/
+Content-Type:  application/json
+Authorization: Basic Trainer1:Trainer1@123
+
+{
+  
+  "trainer_name": "yacob",
+  "qualification": "Phd",
+  "language": "python",
+  "experiance_year": "13"
 
 }

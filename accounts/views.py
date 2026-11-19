@@ -7,10 +7,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication,permissions
 
-from accounts.models import User,StudentProfile
+from accounts.models import User
+from accounts.models import StudentProfile
+from accounts.models import TrainerProfile
 from accounts.serializers import UserSerializer
 
 from accounts.serializers import StudentProfileSerializer
+from accounts.serializers import TrainerProfileSerializer
 
 from accounts.permissions import IsStudentUser,IsTrainerUser
 
@@ -81,3 +84,55 @@ class StudentProfileUpdateView(APIView):
             return Response(data= serializer_instance.data)
         else:
             return Response(data=serializer_instance.errors)
+
+
+
+# Trainer create view -------------------------------------------------------
+
+class TrainerCreateView(APIView):
+
+    def post(self,request):
+        form_data = request.data
+        serializer_instance = UserSerializer(data=form_data)
+
+        if serializer_instance.is_valid():
+            cleaned_data = serializer_instance.validated_data
+            instance = User.objects.create_user(role="trainer",**cleaned_data)
+
+            serializer_instance = UserSerializer(instance)
+
+            return Response(data = serializer_instance.data)
+        else:
+            return Response(data = serializer_instance.errors)
+
+
+class TrainerProfileGetView(APIView):
+    authentication_classes=[authentication.BasicAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get(self,request):
+
+        instance = request.user.trainer
+        serializer_instance = TrainerProfileSerializer(instance)
+        return Response(data=serializer_instance.data)
+
+
+class TrainerProfileUpdateView(APIView):
+    authentication_classes=[authentication.BasicAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+
+    def put(self,request):
+        form_data = request.data
+
+        trainer_profile_object = TrainerProfile.objects.get(trainer=request.user)
+
+        serializer_instance = TrainerProfileSerializer(data=form_data,instance=trainer_profile_object)
+
+        if serializer_instance.is_valid():
+            serializer_instance.save()
+            return Response(data = serializer_instance.data)
+
+        else:
+            return Response(data=serializer_instance.data)
+
+        

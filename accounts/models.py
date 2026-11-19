@@ -51,6 +51,16 @@ def create_student_profile(sender,instance,created,*args,**kwargs):
 
 post_save.connect(create_student_profile,sender=User)
 
+def send_student_invitation_mail(sender,instance,created,*args,**kwargs):
+    if created and instance.role == "student":
+        send_mail(
+                    "Account Creation Confirmation -django ",
+                    "you have created Student account",
+                    "jainjohnson14@gmail.com",
+                    ["greenrazor.gr@gmail.com"],
+        )
+post_save.connect(send_student_invitation_mail,sender=User)
+
 # ===========================================================================================
 #                               Trainer Profile
 # ===========================================================================================
@@ -77,3 +87,15 @@ def create_trainer_profile(sender,instance,created,*args,**kwargs):
     
 post_save.connect(create_trainer_profile,sender=User)
 
+
+from django.core.mail import send_mail
+
+def send_trainer_invitation_mail(sender,instance,created,*args,**kwargs):
+    if created and instance.role == "trainer":
+        send_mail(
+                    "Account Creation Confirmation -django ",
+                    "you have created Trainer account",
+                    "jainjohnson14@gmail.com",
+                    ["greenrazor.gr@gmail.com"],
+        )
+post_save.connect(send_trainer_invitation_mail,sender=User)
