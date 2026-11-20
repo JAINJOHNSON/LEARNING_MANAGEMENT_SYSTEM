@@ -79,7 +79,7 @@ Authorization: Basic Trainer1:Trainer1@123
 ###
 PUT   http://127.0.0.1:8000/accounts/trainer/profile/complete/
 Content-Type:  application/json
-Authorization: Basic Trainer1:Trainer1@123
+Authorization: Token 81c0ceca1dbdb7390e37c525f5ca6e1d91b816ed
 
 {
   
@@ -89,3 +89,28 @@ Authorization: Basic Trainer1:Trainer1@123
   "experiance_year": "13"
 
 }
+
+
+
+#--------------------------------------------------------------------------------------------
+# token authentication
+
+
+
+###
+POST  http://127.0.0.1:8000/accounts/token/generation/
+Content-Type: application/json
+
+{
+  "username":"student2",
+  "password":"student2@123"
+}
+
+# Trainer1 88b255b0f18864023ab8c2e634420ad13198c32f
+# student2 81c0ceca1dbdb7390e37c525f5ca6e1d91b816ed
+
+
+
+
+
+#-------------------------------------------------

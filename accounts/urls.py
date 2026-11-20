@@ -14,6 +14,7 @@ from accounts.views import TrainerCreateView
 from accounts.views import TrainerProfileGetView
 from accounts.views import TrainerProfileUpdateView
 
+from  rest_framework.authtoken.views import ObtainAuthToken
 
 urlpatterns = [
                 # route to admin create
@@ -33,6 +34,9 @@ urlpatterns = [
                 path("trainer/profile/get/me/",TrainerProfileGetView.as_view()),
                 path("trainer/profile/complete/",TrainerProfileUpdateView.as_view()),             
 
+
+                # Token authentication
+                path("token/generation/",ObtainAuthToken.as_view())
                 
 
 ]

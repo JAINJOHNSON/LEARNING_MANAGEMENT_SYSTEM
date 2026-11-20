@@ -118,8 +118,8 @@ class TrainerProfileGetView(APIView):
 
 
 class TrainerProfileUpdateView(APIView):
-    authentication_classes=[authentication.BasicAuthentication]
-    permission_classes=[permissions.IsAuthenticated]
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated,IsTrainerUser]
 
     def put(self,request):
         form_data = request.data
